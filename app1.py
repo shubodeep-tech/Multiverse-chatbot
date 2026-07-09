@@ -30,8 +30,8 @@ PERSONALITIES = [
 with st.sidebar:
     personality = st.selectbox("Who do you want to talk with?", PERSONALITIES)
     model_name = st.selectbox("Model", "gemini-2.5-flash-lite",
-        "gemini-2.5-pro")
-    if st.button("🗑️ Clear chat"):
+        model="gemini-2.5-flash")
+    if st.button(" Clear chat"):
         st.session_state.messages = []
         st.rerun()
 
