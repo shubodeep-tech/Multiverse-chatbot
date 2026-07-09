@@ -48,7 +48,7 @@ for msg in history:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
-# ---------- Chat input ----------
+
 user_message = st.chat_input("Say something...")
 
 if user_message:
@@ -62,7 +62,7 @@ if user_message:
         f"Keep replies conversational, not overly long."
     )
 
-    # Build conversation context so the model remembers earlier turns
+
     contents = [system_instruction]
     for m in history:
         prefix = "User" if m["role"] == "user" else "You"
@@ -77,7 +77,7 @@ if user_message:
                 )
                 reply = response.text
             except Exception as e:
-                reply = f"⚠️ Something went wrong talking to Gemini: {e}"
+                reply = f" Something went wrong talking to Gemini: {e}"
 
         st.write(reply)
 
