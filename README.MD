@@ -1,6 +1,11 @@
+LIVE DEMO: https://app1py-vciqoyehjtklwzuapvqxux.streamlit.app/
+
 # 🌀 Multiverse of Chatbots
 
 A Streamlit app that lets you chat with different AI personalities powered by Google's Gemini API. Pick a character, type a message, and get a response fully in that character's voice — with conversation memory per personality.
+
+
+
 
 ## Features
 
