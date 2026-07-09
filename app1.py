@@ -3,18 +3,21 @@ import os
 from dotenv import load_dotenv
 from google import genai
 
+
 st.set_page_config(page_title="Multiverse of Chatbots", page_icon="🌀")
-st.title(" MULTIVERSE OF CHATBOTS")
+st.title("🌀 MULTIVERSE OF CHATBOTS")
 
 
 load_dotenv()
+
 api_key = os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    st.error("No GEMINI_API_KEY found. Add it to a .env file as GEMINI_API_KEY=your_key_here")
+    st.error(" GEMINI_API_KEY not found.")
     st.stop()
 
 client = genai.Client(api_key=api_key)
+
 
 PERSONALITIES = [
     "An Expert Hacker",
@@ -27,18 +30,33 @@ PERSONALITIES = [
 ]
 
 
-with st.sidebar:
-    personality = st.selectbox("Who do you want to talk with?", PERSONALITIES)
-    model_name = st.selectbox("Model", "gemini-2.5-flash-lite",
-        model="gemini-2.5-flash")
-    if st.button(" Clear chat"):
-        st.session_state.messages = []
-        st.rerun()
+MODELS = [
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite",
+]
 
+
+with st.sidebar:
+
+    personality = st.selectbox(
+        "Who do you want to talk with?",
+        PERSONALITIES
+    )
+
+    model_name = st.selectbox(
+        "Choose Gemini Model",
+        MODELS,
+        index=0
+    )
+
+    if st.button("🗑 Clear Chat"):
+        st.session_state.chats = {}
+        st.rerun()
 
 
 if "chats" not in st.session_state:
     st.session_state.chats = {}
+
 if personality not in st.session_state.chats:
     st.session_state.chats[personality] = []
 
@@ -53,33 +71,57 @@ for msg in history:
 user_message = st.chat_input("Say something...")
 
 if user_message:
-    history.append({"role": "user", "content": user_message})
+
+    history.append(
+        {
+            "role": "user",
+            "content": user_message
+        }
+    )
+
     with st.chat_message("user"):
         st.write(user_message)
 
-    system_instruction = (
-        f"You are acting as {personality}. Stay completely in character "
-        f"in every response: tone, vocabulary, attitude, everything. "
-        f"Keep replies conversational, not overly long."
-    )
+    system_instruction = f"""
+You are acting as {personality}.
 
+Stay completely in character.
 
-    contents = [system_instruction]
+Never mention that you are an AI.
+
+Reply naturally and conversationally.
+"""
+
+    conversation = system_instruction + "\n\n"
+
     for m in history:
-        prefix = "User" if m["role"] == "user" else "You"
-        contents.append(f"{prefix}: {m['content']}")
+        if m["role"] == "user":
+            conversation += f"User: {m['content']}\n"
+        else:
+            conversation += f"Assistant: {m['content']}\n"
 
     with st.chat_message("assistant"):
-        with st.spinner("Connecting to the multiverse..."):
+
+        with st.spinner("Connecting to the Multiverse..."):
+
             try:
+
                 response = client.models.generate_content(
                     model=model_name,
-                    contents="\n".join(contents),
+                    contents=conversation
                 )
+
                 reply = response.text
+
             except Exception as e:
-                reply = f" Something went wrong talking to Gemini: {e}"
+
+                reply = f"Error:\n\n{e}"
 
         st.write(reply)
 
-    history.append({"role": "assistant", "content": reply})
+    history.append(
+        {
+            "role": "assistant",
+            "content": reply
+        }
+    )
