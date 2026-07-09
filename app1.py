@@ -31,8 +31,9 @@ PERSONALITIES = [
 
 
 MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite",
+    "models/gemini-2.5-flash-lite",
+    "models/gemini-flash-lite-latest",
+    "models/gemini-2.0-flash",
 ]
 
 
