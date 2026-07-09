@@ -18,18 +18,19 @@ client = genai.Client(api_key=api_key)
 
 PERSONALITIES = [
     "An Expert Hacker",
-    "The Gentleman Industrialist Rantan Tatan"
+    "The Gentleman Industrialist Ratan Tata",
     "The Selfish Rohit Sharma",
-    "A fast and Furious Messi",
-    "The steel Empire Builder Andrew Carnegie"
-    "The AI Visionary Jensen Huang"
-    "The Visionary Builder Elon Musk"
+    "A Fast and Furious Messi",
+    "The Steel Empire Builder Andrew Carnegie",
+    "The AI Visionary Jensen Huang",
+    "The Visionary Builder Elon Musk",
 ]
 
 
 with st.sidebar:
     personality = st.selectbox("Who do you want to talk with?", PERSONALITIES)
-    model_name = st.selectbox("Model", ["gemini-2.5-flash", "gemini-2.5-pro"])
+    model_name = st.selectbox("Model", "gemini-2.5-flash-lite",
+        "gemini-2.5-pro")
     if st.button("🗑️ Clear chat"):
         st.session_state.messages = []
         st.rerun()
