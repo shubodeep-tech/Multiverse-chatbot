@@ -73,15 +73,3 @@ PERSONALITIES = [
     "Your New Character Here",
 ]
 ```
-
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| `No GEMINI_API_KEY found` error | Make sure `.env` exists in the same folder and contains `GEMINI_API_KEY=...` |
-| App won't start | Confirm `streamlit`, `google-genai`, and `python-dotenv` are installed |
-| Slow or failed responses | Try switching to `gemini-2.5-flash` in the sidebar, or check your API quota |
-
-## License
-
-Personal / educational project — use freely.
