@@ -1,6 +1,7 @@
 # 🌀 Multiverse of Chatbots
 
 **Live Demo:** 
+https://app1py-vciqoyehjtklwzuapvqxux.streamlit.app/
 
 A Streamlit app that lets you chat with different AI personalities powered by the **Groq API**. Pick a character, type a message, and get responses in that character's voice with separate conversation memory for each personality.
 
